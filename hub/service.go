@@ -3,6 +3,7 @@ package hub
 import (
 	"context"
 	"fmt"
+	"io/ioutil"
 
 	"github.com/google/go-github/github"
 )
@@ -44,3 +45,33 @@ func (service *ServiceImpl) Branches(ctx context.Context) ([]*github.Branch, err
 	}
 	return branches, nil
 }
+
+func (service *ServiceImpl) DownloadFile(ctx context.Context, sourceBranch, filePath string) ([]byte, error) {
+	file, err := service.Client.Repositories.DownloadContents(
+		ctx,
+		service.Repository.Owner,
+		service.Repository.Name,
+		path,
+		&github.RepositoryContentGetOptions{
+			Ref: sourceBranch,
+		},
+	)
+
+	defer func() {
+		file.Close()
+	}()
+
+	if err != nil {
+		return nil, fmt.Errorf("failed to download file from GitHub: %s", err)
+	}
+
+	bytes, err := ioutil.ReadAll(file)
+	if err != nil {
+		return nil, fmt.Errorf("failed to download file from GitHub: %s", err)
+	}
+
+	return bytes, nil
+
+}
+
+func (service *ServiceImpl)

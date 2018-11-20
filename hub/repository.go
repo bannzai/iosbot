@@ -1,5 +1,6 @@
 package hub
 
 type GitHubRepository struct {
-	Name string
+	Owner Owner
+	Name  string
 }

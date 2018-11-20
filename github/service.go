@@ -1,10 +1,12 @@
 package github
 
+import git "github.com/google/go-github"
+
 type Service interface {
 }
 
 type ServiceImpl struct {
 	Repository GitHubRepository
 	Author     CommitAuthor
-	Client     *github.Client
+	Client     *git.Client
 }

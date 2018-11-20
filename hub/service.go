@@ -1,4 +1,4 @@
-package github
+package hub
 
 import git "github.com/google/go-github"
 

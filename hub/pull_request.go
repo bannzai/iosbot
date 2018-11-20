@@ -1,4 +1,4 @@
-package github
+package hub
 
 type PullRequest struct {
 	TargetBranch  string

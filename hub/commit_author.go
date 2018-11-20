@@ -1,4 +1,4 @@
-package github
+package hub
 
 type CommitAuthor struct {
 	Name  string

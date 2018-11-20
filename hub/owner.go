@@ -1,4 +1,4 @@
-package github
+package hub
 
 type Owner struct {
 	Name string

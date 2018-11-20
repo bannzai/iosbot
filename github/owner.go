@@ -1,5 +1,5 @@
 package github
 
-type GitHubRepository struct {
+type Owner struct {
 	Name string
 }

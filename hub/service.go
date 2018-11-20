@@ -29,3 +29,18 @@ func (service ServiceImpl) DefaultBranch(ctx context.Context) (string, error) {
 	defaultBranch := repo.GetDefaultBranch()
 	return defaultBranch, nil
 }
+
+func (service *ServiceImpl) Branches(ctx context.Context) ([]*github.Branch, error) {
+	branches, _, err := service.Client.Repositories.ListBranches(
+		ctx,
+		service.Repository.Owner,
+		service.Repository.Name,
+		&github.ListOptions{
+			PerPage: 100,
+		},
+	)
+	if err != nil {
+		return nil, fmt.Errorf("failed to fetch GitHub branches: %s", err)
+	}
+	return branches, nil
+}
